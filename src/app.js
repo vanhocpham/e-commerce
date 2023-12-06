@@ -11,6 +11,11 @@ app.use(helmet());
 app.use(compression());
 
 // init database
+require('./dbs/init.mongodb')
+const {checkOverload} = require('./helpers/check.connect');
+checkOverload();
+
+//init routers
 app.get('/', (req, res, next) => {
     const strCompression = 'helllo ABDBBCDBBC'
     return res.status(200).json({
@@ -18,9 +23,6 @@ app.get('/', (req, res, next) => {
         metadata: strCompression.repeat(20000)
     })
 })
-
-
-//init routers
 
 
 // handle errors
