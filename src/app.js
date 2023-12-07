@@ -10,6 +10,10 @@ require('dotenv').config();
 app.use(morgan("dev")); // combined for prod
 app.use(helmet());
 app.use(compression());
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true,
+}));
 
 // init database
 require('./dbs/init.mongodb')
@@ -17,13 +21,7 @@ const {checkOverload} = require('./helpers/check.connect');
 checkOverload();
 
 //init routers
-app.get('/', (req, res, next) => {
-    const strCompression = 'helllo ABDBBCDBBC'
-    return res.status(200).json({
-        message: 'Welcome! HocPV',
-        metadata: strCompression.repeat(20000)
-    })
-})
+app.use('/', require('./routes'))
 
 
 // handle errors
