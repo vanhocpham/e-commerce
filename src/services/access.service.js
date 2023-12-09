@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const KeyTokenService = require("./keyToken.service");
 const { createTokenPair } = require("../auth/authUtils");
+const { getInfoData } = require("../utils");
 
 const RoleShop = {
     SHOP: 'SHOP',
@@ -36,16 +37,14 @@ class AccessService {
                 // create privateKey, publicKey
                 const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa', {
                     modulusLength: 4096,
-                    // publicKeyEncoding: {
-                    //     type: 'spki',
-                    //     format: 'pem',
-                    //   },
-                    //   privateKeyEncoding: {
-                    //     type: 'pkcs8',
-                    //     format: 'pem',
-                    //     cipher: 'aes-256-cbc',
-                    //     passphrase: 'top secret',
-                    //   },
+                    publicKeyEncoding: {
+                        type: 'pkcs1',
+                        format: 'pem',
+                      },
+                    privateKeyEncoding: {
+                    type: 'pkcs1',
+                    format: 'pem',
+                    },
                 })
 
                 console.log({privateKey, publicKey})// save collection KeyStore
@@ -62,15 +61,16 @@ class AccessService {
                     }
                 }
 
+                const publicKeyObject = crypto.createPublicKey(publicKeyString);
                 // Create tokenp pair
-                const tokens = await createTokenPair({userId: newShop._id, email}, publicKey, privateKey);
+                const tokens = await createTokenPair({userId: newShop._id, email}, publicKeyObject, privateKey);
 
                 console.log(`Created Token Success::`, tokens);
 
                 return {
                     code: 201,
                     metadata: {
-                        shop: newShop,
+                        shop: getInfoData({fields: ['_id', 'name', 'email'], objects: newShop}),
                         tokens,
                     }
                 }
