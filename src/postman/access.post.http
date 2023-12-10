@@ -1,7 +1,7 @@
 @url_dev=http://localhost:3055/v1/api
 
 ### signup
-
+### Update postman
 POST {{url_dev}}/shop/signup
 Content-Type: application/json
 
