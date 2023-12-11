@@ -4,6 +4,7 @@
 ### Update postman
 POST {{url_dev}}/shop/signup
 Content-Type: application/json
+x-api-key: 09752692704ad04c0eb61335031d900aded2417eba1f29d833f57a8be57d4afd543cab3fe180ed1ef97984b0f54798c085b97d47da6a5453d4bc6353b111bb0e
 
 {
     "name": "Shop HocPV",
