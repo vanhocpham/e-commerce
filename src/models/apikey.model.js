@@ -28,8 +28,8 @@ var apiKeySchema = new Schema({
     //     expires: '30day' // this will automatically delete expired API keys after 30days
     // }
 }, {
-    colection: COLLECTION_NAME,
     timestamps: true,
+    colection: COLLECTION_NAME,
 });
 
 //Export the model
