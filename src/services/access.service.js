@@ -17,6 +17,9 @@ const RoleShop = {
 }
 
 class AccessService {
+    static logo = async({email, password}) => {
+        
+    }
 
     /*
         1- check mail in dbs
