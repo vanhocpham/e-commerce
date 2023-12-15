@@ -17,8 +17,8 @@ const RoleShop = {
 }
 
 class AccessService {
-    static logo = async({email, password}) => {
-        
+    static logout = async({email, password}) => {
+
     }
 
     /*
