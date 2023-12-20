@@ -4,9 +4,9 @@ const shopModel = require("../models/shop.model");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const KeyTokenService = require("./keyToken.service");
-const { createTokenPair } = require("../auth/authUtils");
+const { createTokenPair, verifyJWT } = require("../auth/authUtils");
 const { getInfoData } = require("../utils");
-const { BadRequestError, AuthFailureError } = require("../core/error.response");
+const { BadRequestError, AuthFailureError, ForbiddenError } = require("../core/error.response");
 const { findByEmail } = require("./shop.service");
 
 const RoleShop = {
@@ -22,7 +22,18 @@ class AccessService {
      * @param {String} refreshToken 
      */
     static handlerRefreshToken = async (refreshToken) => {
+        const foundToken = await KeyTokenService.findByRefreshTokenUsed(refreshToken);
 
+        if(foundToken){
+            // decode found Token
+            const {userId, email} = await verifyJWT(refreshToken, foundToken.privateKey)
+            console.log({userId, email})
+
+            await KeyTokenService.deleteKeyById(userId)
+            throw new ForbiddenError('Something wrong happend! Pls relogin!')
+        }
+
+        // const holderToken = await KeyTokenService.
     }
     static logout = async(keyStore) => {
         const delKey = await KeyTokenService.removeKeyById(keyStore._id);
