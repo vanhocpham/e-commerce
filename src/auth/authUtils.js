@@ -82,6 +82,6 @@ const verifyJWT = async (token, keyStore) => {
 
 module.exports = {
     createTokenPair,
-    authentication,,
+    authentication,
     verifyJWT
 }
