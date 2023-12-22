@@ -17,6 +17,55 @@ const RoleShop = {
 }
 
 class AccessService {
+    static handlerRefreshTokenV2 = async ({refreshToken, user, keyStore}) => {
+        const {userId, email} = user;
+
+        if(keyStore.refreshTokensUsed.includes(refreshToken)){
+            await KeyTokenService.deleteKeyById(userId)
+            throw new ForbiddenError('Something wrong happend! Pls relogin!')
+        }
+
+        if(keyStore.refreshToken !== refreshToken) throw new AuthFailureError('Shop not registered');
+        // Check email
+        const foundShop = await findByEmail({email});
+        if(!foundShop) throw new AuthFailureError('Shop not registered');
+        console.log(foundShop)
+
+
+        // create a new pair token
+        //--- create privateKey and publickey with rsa-----
+        const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa', {
+            modulusLength: 4096,
+            publicKeyEncoding: {
+                type: 'pkcs1',
+                format: 'pem',
+            },
+            privateKeyEncoding: {
+            type: 'pkcs1',
+            format: 'pem',
+            },
+        })
+        //--- convert publicKey to string-----
+        const publicKeyString = publicKey.toString();
+        //--- convert publicKey string to rsa readable-----
+        const publicKeyObject = crypto.createPublicKey(publicKeyString);
+        const tokens = await createTokenPair({userId, email}, publicKeyObject, privateKey);
+
+        // update token
+        await keyStore.updateOne({
+            $set: {
+                refreshToken: tokens.refreshToken
+            },
+            $addToSet: {
+                refreshTokensUsed: refreshToken
+            }
+        })
+
+        return {
+            user,
+            tokens,
+        }
+    }
     /**
      * Check this token used
      * @param {String} refreshToken 
@@ -80,6 +129,7 @@ class AccessService {
             tokens,
         }
     }
+
     static logout = async(keyStore) => {
         const delKey = await KeyTokenService.removeKeyById(keyStore._id);
         console.log({delKey})
