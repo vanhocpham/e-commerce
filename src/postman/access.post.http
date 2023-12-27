@@ -41,16 +41,15 @@ x-client-id: 65786f70286d7990c596bc36
 x-rtoken-id: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTc4NmY3MDI4NmQ3OTkwYzU5NmJjMzYiLCJlbWFpbCI6ImhvY3B2NEB2YW5ob2NwaGFtLmNvbSIsImlhdCI6MTcwMzE3NjQ1MCwiZXhwIjoxNzAzNzgxMjUwfQ.Dd6TJmosvOs5C4o4Cf-3r0sAyLtU5gu9hOGeKzazrdLvUiAx74kUMk7bfBX6sOBhSFgzsS1q641laY_C1wIyi9qgDZ9ra596PBN54f9sg4mgheij67kpbhBvkvy9WHTCmcigqVR-pe3zauqkHJXH1mZJvVKBwojFgM52wQg8QzSQy6jxLaLkuiFnL0lUi7kmrEbWXTB6Jv9coT48DkODFmVUxEEdR5HVZmDpalFphhnCflCyTPGUCWd0zjsHafL1rbIJvQFJXFIoCIhdaCN8EeY-GhyJxRXZj05J0LOEYIxqFOMRS81_VgZxD93gHmTQUXbo-Mlj4qv7KWcowMLNXpLoDYvSSnvr7HR9K-AM7J6at4SnyLEzuM_2yKzDSbiCvGddNwfTAx9QlKo-RsOAUS3yy5UKayHXkl7roAZBR4RXOhys6IqhlNO163Fcz4hJykw6Gi8QIwuQUQBlp-qlAbtiSxNIh3rkEXK19sMzEpoirtWgrCqAINV25VOhigXEqEftDVkEjWRdTrMtckNSriyrEaT1uJzCVlUbsm2U9NkLMMD9epCF_KWrNwtVkCyKKCggWSasNZWKHrLC9AnW15qFJol9A9ndFeyl-Nfn-W6rN7EZLCEJLVI_0PUvVdL6ORiNwzTbyUR-XBanFm55RUtuQcRjAQAkmTAQheFuLFY
 
 {
-    "product_name": "New Jeans",
-    "product_description": "High-quality denim jeans",
-    "product_price": 50,
-    "product_shop": "65786f70286d7990c596bc36",
-    "product_type": "Clothing",
+    "product_name": "Iphone 14 64GB",
+    "product_description": "New Iphone of the year",
+    "product_price": 500,
+    "product_type": "Electronics",
     "product_thumb": "product_thumb",
-    "product_quantity": 5,
+    "product_quantity": 10,
     "product_attributes": {
-        "brand": "Levi s",
-        "size": "L",
-        "material": "Denim"
+        "manufacturer": "Apple",
+        "model": "iPhone 14",
+        "color": "Gold"
     }
 }

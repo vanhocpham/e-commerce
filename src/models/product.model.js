@@ -51,6 +51,10 @@ const clothingSchema = new Schema({
     },
     size: String,
     material: String,
+    product_shop: {
+        type: Schema.Types.ObjectId,
+        ref: 'Shop',
+    },
 }, {
     collation: 'Clothing',
     timestamps: true,
@@ -58,12 +62,16 @@ const clothingSchema = new Schema({
 
 // Define the product type = electronics
 const electronicSchema = new Schema({
-    manufacture:{
+    manufacturer:{
         type: String,
         required:true,
     },
     model: String,
     color: String,
+    product_shop: {
+        type: Schema.Types.ObjectId,
+        ref: 'Shop',
+    },
 }, {
     collation: 'Electronics',
     timestamps: true,
