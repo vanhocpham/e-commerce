@@ -1,7 +1,6 @@
 @url_dev=http://localhost:3055/v1/api
 
 ### signup
-### Update postman
 POST {{url_dev}}/shop/signup
 Content-Type: application/json
 x-api-key: 09752692704ad04c0eb61335031d900aded2417eba1f29d833f57a8be57d4afd543cab3fe180ed1ef97984b0f54798c085b97d47da6a5453d4bc6353b111bb0e
@@ -13,7 +12,6 @@ x-api-key: 09752692704ad04c0eb61335031d900aded2417eba1f29d833f57a8be57d4afd543ca
 }
 
 ### Login
-### Update postman
 POST {{url_dev}}/shop/login
 Content-Type: application/json
 x-api-key: 09752692704ad04c0eb61335031d900aded2417eba1f29d833f57a8be57d4afd543cab3fe180ed1ef97984b0f54798c085b97d47da6a5453d4bc6353b111bb0e
@@ -24,15 +22,35 @@ x-api-key: 09752692704ad04c0eb61335031d900aded2417eba1f29d833f57a8be57d4afd543ca
 }
 
 ### Logout
-### Update postman
 POST {{url_dev}}/shop/logout
 x-api-key: 09752692704ad04c0eb61335031d900aded2417eba1f29d833f57a8be57d4afd543cab3fe180ed1ef97984b0f54798c085b97d47da6a5453d4bc6353b111bb0e
 x-client-id: 65786f70286d7990c596bc36
 x-rtoken-id: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTc4NmY3MDI4NmQ3OTkwYzU5NmJjMzYiLCJlbWFpbCI6ImhvY3B2NEB2YW5ob2NwaGFtLmNvbSIsImlhdCI6MTcwMjkwOTY5MSwiZXhwIjoxNzAzMDgyNDkxfQ.oiK9pVmU2SD2GzEMqYMiQya4g0YmgR_CYH5LSQ1VTZEJnLx7B_5wyUCdzYYqXNdROg7HoztlXPj_Wv3QzA96oV0O7hsCSoYq68aC_wd8lchUep4y9eW2HtxRvbT_ixdHik4G83puRAUokurqpZ3elatC2rrhbePFogfpAzFO-04jvFkPJolE_LeXpMFvEzI6M-z_LZr4glsYvG3aF8b_ShSQPkdacaMpJhFbBIW8ZFSjltxjVK7t9yZsF4skCIR6DZGKNo6T4keq0X8f0oM5DC3HoqR60grXEdGQ-a3eb-4ptLx8pW9FKMJL_ey_bLDatEgZ8xWqo3OZ4m4IaY9wGeNlr1_y6tw-OZjRalmfiM7u09SNVc0LCpU0LKOwpati2sXIyvred3ovHlCWn3aqVDszAkZxIoKXSHpGreKePpaweBANDnfLANi_FjvEwW9mY7S_Wi-fJ92e7F5lLqZzuPFe9TQNWYhm_-e_gXU9YHwwsv3q2UoGtXutXCe5z8UlgpKi2YSx3l67rJwU-ObtNgiDIQyI58BaakPeH3iN_oMQeGfWh1fwJg2CYX7ixaZAy4BDKjbCD6WnXOJsN02Q9eR4BXrZ4oHcK8E3Fw56K8tOCVev3wvpxwsnb_ZyiNch4PioGKqxaqHovCW6n7qLsPe_PFR4s5lDHbu3LzEW-cA
 
 ### handlerRefreshToken
-### Update postman
 POST {{url_dev}}/shop/handlerRefreshToken
 x-api-key: 09752692704ad04c0eb61335031d900aded2417eba1f29d833f57a8be57d4afd543cab3fe180ed1ef97984b0f54798c085b97d47da6a5453d4bc6353b111bb0e
 x-client-id: 65786f70286d7990c596bc36
 x-rtoken-id: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTc4NmY3MDI4NmQ3OTkwYzU5NmJjMzYiLCJlbWFpbCI6ImhvY3B2NEB2YW5ob2NwaGFtLmNvbSIsImlhdCI6MTcwMzE3NjQ1MCwiZXhwIjoxNzAzNzgxMjUwfQ.Dd6TJmosvOs5C4o4Cf-3r0sAyLtU5gu9hOGeKzazrdLvUiAx74kUMk7bfBX6sOBhSFgzsS1q641laY_C1wIyi9qgDZ9ra596PBN54f9sg4mgheij67kpbhBvkvy9WHTCmcigqVR-pe3zauqkHJXH1mZJvVKBwojFgM52wQg8QzSQy6jxLaLkuiFnL0lUi7kmrEbWXTB6Jv9coT48DkODFmVUxEEdR5HVZmDpalFphhnCflCyTPGUCWd0zjsHafL1rbIJvQFJXFIoCIhdaCN8EeY-GhyJxRXZj05J0LOEYIxqFOMRS81_VgZxD93gHmTQUXbo-Mlj4qv7KWcowMLNXpLoDYvSSnvr7HR9K-AM7J6at4SnyLEzuM_2yKzDSbiCvGddNwfTAx9QlKo-RsOAUS3yy5UKayHXkl7roAZBR4RXOhys6IqhlNO163Fcz4hJykw6Gi8QIwuQUQBlp-qlAbtiSxNIh3rkEXK19sMzEpoirtWgrCqAINV25VOhigXEqEftDVkEjWRdTrMtckNSriyrEaT1uJzCVlUbsm2U9NkLMMD9epCF_KWrNwtVkCyKKCggWSasNZWKHrLC9AnW15qFJol9A9ndFeyl-Nfn-W6rN7EZLCEJLVI_0PUvVdL6ORiNwzTbyUR-XBanFm55RUtuQcRjAQAkmTAQheFuLFY
+
+
+### Create Product
+POST {{url_dev}}/product
+x-api-key: 09752692704ad04c0eb61335031d900aded2417eba1f29d833f57a8be57d4afd543cab3fe180ed1ef97984b0f54798c085b97d47da6a5453d4bc6353b111bb0e
+x-client-id: 65786f70286d7990c596bc36
+x-rtoken-id: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTc4NmY3MDI4NmQ3OTkwYzU5NmJjMzYiLCJlbWFpbCI6ImhvY3B2NEB2YW5ob2NwaGFtLmNvbSIsImlhdCI6MTcwMzE3NjQ1MCwiZXhwIjoxNzAzNzgxMjUwfQ.Dd6TJmosvOs5C4o4Cf-3r0sAyLtU5gu9hOGeKzazrdLvUiAx74kUMk7bfBX6sOBhSFgzsS1q641laY_C1wIyi9qgDZ9ra596PBN54f9sg4mgheij67kpbhBvkvy9WHTCmcigqVR-pe3zauqkHJXH1mZJvVKBwojFgM52wQg8QzSQy6jxLaLkuiFnL0lUi7kmrEbWXTB6Jv9coT48DkODFmVUxEEdR5HVZmDpalFphhnCflCyTPGUCWd0zjsHafL1rbIJvQFJXFIoCIhdaCN8EeY-GhyJxRXZj05J0LOEYIxqFOMRS81_VgZxD93gHmTQUXbo-Mlj4qv7KWcowMLNXpLoDYvSSnvr7HR9K-AM7J6at4SnyLEzuM_2yKzDSbiCvGddNwfTAx9QlKo-RsOAUS3yy5UKayHXkl7roAZBR4RXOhys6IqhlNO163Fcz4hJykw6Gi8QIwuQUQBlp-qlAbtiSxNIh3rkEXK19sMzEpoirtWgrCqAINV25VOhigXEqEftDVkEjWRdTrMtckNSriyrEaT1uJzCVlUbsm2U9NkLMMD9epCF_KWrNwtVkCyKKCggWSasNZWKHrLC9AnW15qFJol9A9ndFeyl-Nfn-W6rN7EZLCEJLVI_0PUvVdL6ORiNwzTbyUR-XBanFm55RUtuQcRjAQAkmTAQheFuLFY
+
+{
+    "product_name": "New Jeans",
+    "product_description": "High-quality denim jeans",
+    "product_price": 50,
+    "product_shop": "65786f70286d7990c596bc36",
+    "product_type": "Clothing",
+    "product_thumb": "product_thumb",
+    "product_quantity": 5,
+    "product_attributes": {
+        "brand": "Levi s",
+        "size": "L",
+        "material": "Denim"
+    }
+}
