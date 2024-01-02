@@ -51,13 +51,13 @@ var productSchema = new Schema({
         type: Array,
         default: [],
     },
-    isDarft: {
+    isDraft: {
         type: Boolean,
         default: true,
         index: true,
         select: false,
     },
-    isPublic: {
+    isPublished: {
         type: Boolean,
         default: false,
         index: true,
@@ -69,7 +69,7 @@ var productSchema = new Schema({
 });
 
 // Document middleware runs before .save() and .create()
-productSchema.pre('save', (next) => {
+productSchema.pre('save', function (next) {
     this.product_slug = slugify(this.product_name, {lower: true});
     next();
 })
