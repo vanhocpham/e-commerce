@@ -7,6 +7,8 @@ const {
     publishProductByShopRepo,
     unPublishProductByShopRepo,
     searchProductByUserRepo,
+    findAllProductsRepo,
+    findProductsRepo,
 } = require('../models/repositories/product.repo');
 // Define Factory class to create product
 class ProductFactory {
@@ -58,6 +60,18 @@ class ProductFactory {
     // query search product
     static async searchProducts({keySearch}){
         return await searchProductByUserRepo({keySearch});
+    }
+
+    // query findAll product
+    static async findAllProducts({limit = 50, sort = 'ctime', page = 1, filter = {isPublished : true}}){
+        return await findAllProductsRepo({limit, sort, page, filter, 
+            select: ["product_name", "product_price", "product_thumb"]
+        });
+    }
+
+     // query findone product
+     static async findProduct({product_id}){
+        return await findProductsRepo({product_id, unSelect:['__v', 'product_variations']});
     }
 }
 
