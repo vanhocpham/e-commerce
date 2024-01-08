@@ -30,6 +30,7 @@ class ProductFactory {
         return new productClass(payload).createProduct();
     }
 
+    // API update product
     static async updateProduct(type, payload) {
         // const productClass = ProductFactory.productRegistry[type];
 
