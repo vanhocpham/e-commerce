@@ -15,8 +15,35 @@ const unGetSelectData = (select = []) => {
     return Object.fromEntries(select.map(el => [el , 0]))
 }
 
+const removeNullObject = obj => {
+    Object.keys(obj).forEach(key => {
+        if(obj[key] === null){
+            delete obj[key];
+        }
+    })
+
+    return obj;
+}
+
+const removeNullNestedObject = (obj) => {
+    const final = {}
+
+    Object.keys(obj).forEach(key => {
+        if(typeof obj[key] === 'Object' && !Array.isArray(obj[key])){
+            const response = removeNullNestedObject(obj[key]);
+            Object.keys(response).forEach(k => {
+                final[`${key}.${k}`] = response[k];
+            })
+        }
+    })
+
+    return final;
+}
+
 module.exports = {
     getInfoData,
     getSelectData,
     unGetSelectData,
+    removeNullObject,
+    removeNullNestedObject,
 }

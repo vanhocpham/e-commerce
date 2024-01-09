@@ -80,6 +80,10 @@ const findProductsRepo = async ({product_id, unSelect}) => {
     return await product.findById(product_id).select(unGetSelectData(unSelect));
 }
 
+const updateProductByIdRepo = async ({productId, bodyUpdate, model, isNew = true}) => {
+    return await model.findByIdAndUpdate(productId, bodyUpdate, {new: isNew});
+}
+
 module.exports = {
     findAllProductForShopRepo,
     publishProductByShopRepo,
@@ -87,4 +91,5 @@ module.exports = {
     searchProductByUserRepo,
     findAllProductsRepo,
     findProductsRepo,
+    updateProductByIdRepo,
 }

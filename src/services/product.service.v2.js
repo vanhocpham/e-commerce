@@ -9,7 +9,9 @@ const {
     searchProductByUserRepo,
     findAllProductsRepo,
     findProductsRepo,
+    updateProductByIdRepo,
 } = require('../models/repositories/product.repo');
+const { removeNullObject, removeNullNestedObject } = require('../utils');
 // Define Factory class to create product
 class ProductFactory {
     /**
@@ -31,12 +33,12 @@ class ProductFactory {
     }
 
     // API update product
-    static async updateProduct(type, payload) {
-        // const productClass = ProductFactory.productRegistry[type];
+    static async updateProduct(type, productId, payload) {
+        const productClass = ProductFactory.productRegistry[type];
 
-        // if(!productClass)  throw new BadRequestError('Invalid Product Type: ' + type);
+        if(!productClass)  throw new BadRequestError('Invalid Product Type: ' + type);
 
-        // return new productClass(payload).createProduct();
+        return new productClass(payload).updateProduct(productId);
     }
 
     //PUT//
@@ -113,6 +115,11 @@ class Product {
             _id: product_id,
         })
     }
+
+    // Update product
+    async updateProduct(product_id, bodyUpdate){
+        return await updateProductByIdRepo({product_id, bodyUpdate, model: product})
+    }
 }
 
 // Define sub-class for different product types Clothing
@@ -128,6 +135,21 @@ class Clothing extends Product {
         if(!newProduct) throw new  BadRequestError("create new Product error");
 
         return newProduct;
+    }
+
+    async updateProduct(productId){
+        // 1. remove attr has nul or undefined
+        // 2. Check where update?
+        const objectParams = removeNullNestedObject(this);
+        if(objectParams.product_attributes){
+            // update child
+            await updateProductByIdRepo({productId, objectParams, model: clothing})
+
+        }
+
+        const updatedProduct = await super.updateProduct(productId, objectParams);
+
+        return updatedProduct;
     }
 }
 
