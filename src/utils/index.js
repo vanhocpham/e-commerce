@@ -34,6 +34,8 @@ const removeNullNestedObject = (obj) => {
             Object.keys(response).forEach(k => {
                 final[`${key}.${k}`] = response[k];
             })
+        } else {
+            final[key] = obj[key]
         }
     })
 
