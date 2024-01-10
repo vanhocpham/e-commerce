@@ -81,7 +81,7 @@ const findProductsRepo = async ({product_id, unSelect}) => {
 }
 
 const updateProductByIdRepo = async ({productId, bodyUpdate, model, isNew = true}) => {
-    return await model.findByIdAndUpdate(productId, bodyUpdate, {new: isNew});
+    return await model.findByIdAndUpdate({_id: productId}, bodyUpdate, {new: isNew});
 }
 
 module.exports = {

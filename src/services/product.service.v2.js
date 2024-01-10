@@ -11,7 +11,7 @@ const {
     findProductsRepo,
     updateProductByIdRepo,
 } = require('../models/repositories/product.repo');
-const { removeNullObject, removeNullNestedObject } = require('../utils');
+const { removeNullObject, updateNestedObjectParser } = require('../utils');
 // Define Factory class to create product
 class ProductFactory {
     /**
@@ -117,8 +117,8 @@ class Product {
     }
 
     // Update product
-    async updateProduct(product_id, bodyUpdate){
-        return await updateProductByIdRepo({product_id, bodyUpdate, model: product})
+    async updateProduct(productId, bodyUpdate){
+        return await updateProductByIdRepo({productId, bodyUpdate, model: product})
     }
 }
 
@@ -140,14 +140,14 @@ class Clothing extends Product {
     async updateProduct(productId){
         // 1. remove attr has nul or undefined
         // 2. Check where update?
-        const objectParams = removeNullNestedObject(this);
+        const objectParams = this;
         if(objectParams.product_attributes){
             // update child
-            await updateProductByIdRepo({productId, objectParams, model: clothing})
+            await updateProductByIdRepo({productId, bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), model: clothing})
 
         }
 
-        const updatedProduct = await super.updateProduct(productId, objectParams);
+        const updatedProduct = await super.updateProduct(productId, updateNestedObjectParser(objectParams));
 
         return updatedProduct;
     }
@@ -167,6 +167,18 @@ class Electronics extends Product {
 
         return newProduct;
     }
+
+    async updateProduct(productId){
+        const objectParams = this;
+        if(objectParams.product_attributes){
+            await updateProductByIdRepo({productId, bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), model: electronic})
+
+        }
+
+        const updatedProduct = await super.updateProduct(productId, updateNestedObjectParser(objectParams));
+
+        return updatedProduct;
+    }
 }
 
 // Define sub-class for different product types Furnitures
@@ -182,6 +194,18 @@ class Furnitures extends Product {
         if(!newProduct) throw new  BadRequestError("create new Product error");
 
         return newProduct;
+    }
+
+    async updateProduct(productId){
+        const objectParams = this;
+        if(objectParams.product_attributes){
+            await updateProductByIdRepo({productId, bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), model: furniture})
+
+        }
+
+        const updatedProduct = await super.updateProduct(productId, updateNestedObjectParser(objectParams));
+
+        return updatedProduct;
     }
 }
 

@@ -25,17 +25,21 @@ const removeNullObject = obj => {
     return obj;
 }
 
-const removeNullNestedObject = (obj) => {
+const updateNestedObjectParser = (obj) => {
     const final = {}
 
     Object.keys(obj).forEach(key => {
-        if(typeof obj[key] === 'Object' && !Array.isArray(obj[key])){
-            const response = removeNullNestedObject(obj[key]);
+        if(obj[key] !== null && typeof obj[key] === 'object' && !Array.isArray(obj[key])){
+            const response = updateNestedObjectParser(obj[key]);
             Object.keys(response).forEach(k => {
-                final[`${key}.${k}`] = response[k];
+                if(response[k] !== null){
+                    final[`${key}.${k}`] = response[k];
+                }
             })
         } else {
-            final[key] = obj[key]
+            if(obj[key] !== null){
+                final[key] = obj[key]
+            }
         }
     })
 
@@ -47,5 +51,5 @@ module.exports = {
     getSelectData,
     unGetSelectData,
     removeNullObject,
-    removeNullNestedObject,
+    updateNestedObjectParser,
 }
