@@ -58,4 +58,9 @@ class DiscoutService {
 
         return newDiscount;
     }
+
+    //  update discount code
+    static async updateDiscountCode(params){
+
+    }
 }
