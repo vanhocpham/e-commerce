@@ -1,8 +1,10 @@
 'use strict'
 
-const { BadRequestError } = require("../core/error.response");
+const { BadRequestError, NotFoundError } = require("../core/error.response");
 const discount = require("../models/discount.model");
+const { findAllDiscountCodesUnselect } = require("../models/repositories/discount.repo");
 const { convertToObjectIdMongo } = require("../utils");
+const { findAllProducts } = require("./product.service.v2");
 
 /**
  * Discout Service
@@ -62,5 +64,74 @@ class DiscoutService {
     //  update discount code
     static async updateDiscountCode(params){
 
+    }
+
+    /**
+     * Get all discount codes available with products
+     */
+    static async getAllDiscountCodesWithProduct({
+        code, shopId, userId, limit, page
+    }){
+       // create index for discount code
+       const foundDiscount = await discount.findOne({
+            discount_code: code,
+            discount_shopId: convertToObjectIdMongo(shopId),
+        }).lean()
+
+        if(!foundDiscount || !foundDiscount.discount_is_active){
+            throw new NotFoundError('Discount code not found!')
+        }
+
+        const {discount_applies_to, discount_product_ids} = foundDiscount;
+        let products;
+
+        if(discount_applies_to === 'all'){
+            products = await findAllProducts({
+                filter: {
+                    product_shop: convertToObjectIdMongo(shopId),
+                    is_published: true,
+                },
+                limit: +limit,
+                page: +page,
+                sort: 'ctime',
+                select: ['product_name']
+            })
+        }
+
+        if(discount_applies_to === 'specific'){
+            products = await findAllProducts({
+                filter: {
+                    _id: {$in: discount_product_ids},
+                    is_published: true,
+                },
+                limit: +limit,
+                page: +page,
+                sort: 'ctime',
+                select: ['product_name']
+            })
+        }
+
+        return products;
+    }
+
+    /**
+     * Get all discount codes of Shop
+     */
+
+    static async getAllDiscountCodesByShop({
+        limit, page, shopId
+    }){
+        const discounts = await findAllDiscountCodesUnselect({
+            limit: +limit,
+            page: +page,
+            filter: {
+                discount_shopId: convertToObjectIdMongo(shopId),
+                discount_is_active: true,
+            },
+            unSelect: ['__v', 'discount_shopId'],
+            model: discount,
+        })
+
+        return discounts;
     }
 }
