@@ -2,7 +2,7 @@
 
 const { BadRequestError, NotFoundError } = require("../core/error.response");
 const discount = require("../models/discount.model");
-const { findAllDiscountCodesUnselect } = require("../models/repositories/discount.repo");
+const { findAllDiscountCodesUnselect, checkDiscountExists } = require("../models/repositories/discount.repo");
 const { convertToObjectIdMongo } = require("../utils");
 const { findAllProducts } = require("./product.service.v2");
 
@@ -133,5 +133,29 @@ class DiscoutService {
         })
 
         return discounts;
+    }
+
+    /**
+     * Apply discount code
+     * 
+        products = [
+            {
+                productId,
+                shopId,
+                quantity,
+                name,
+                price,
+            },
+            {
+                productId,
+                shopId,
+                quantity,
+                name,
+                price,
+            }
+        ]
+     */
+    static async getDiscountAmount({codeId, userId, shopId, products}){
+
     }
 }
