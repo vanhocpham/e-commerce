@@ -156,6 +156,61 @@ class DiscoutService {
         ]
      */
     static async getDiscountAmount({codeId, userId, shopId, products}){
+        const foundDiscount = await checkDiscountExists({
+            model: discount,
+            filter: {
+                discount_code: codeId,
+                discount_shopId: convertToObjectIdMongo(shopId)
+            }
+        });
 
+        if(!foundDiscount) throw new NotFoundError('Discount code not found!');
+
+        const {
+            discount_is_active,
+            discount_max_uses,
+            discount_min_order_value,
+            discount_max_order_value,
+            discount_users_used,
+            discount_type,
+            discount_value,
+        } = foundDiscount;
+
+        if(!discount_is_active) throw new NotFoundError('Discount expired!');
+        if(!discount_max_uses) throw new NotFoundError('Discount are out!');
+
+        if(new Date() < new Date(discount_start_date || new Date() > new Date(discount_end_date)){
+            throw new NotFoundError('Discount are expired!');
+        }
+
+        // check min value of cost
+        let totalOrder = 0;
+        if(discount_min_order_value > 0){
+            // get total
+            totalOrder = products.reduce((acc, product) => {
+                return acc + product.quantity * product.price
+            }, 0)
+
+            if(totalOrder < discount_min_order_value){
+                throw new NotFoundError(`Discount require a minimum order value of ${discount_min_order_value}!`);
+            
+            }
+        }
+
+        if(discount_max_order_value > 0){
+            const userUsedDiscount = discount_users_used.find(user => user.userId === userId);
+
+            if(userUsedDiscount){
+
+            }
+        }
+
+        const amount = discount_type === 'fixed_amount' ? discount_value : totalOrder * (discount_value / 100)
+
+        return {
+            totalOrder,
+            discount: amount,
+            totalPrice: totalOrder - amount,
+        }
     }
 }
