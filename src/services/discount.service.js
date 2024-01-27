@@ -213,4 +213,8 @@ class DiscoutService {
             totalPrice: totalOrder - amount,
         }
     }
+
+    static async deleteDiscount(){
+        
+    }
 }
