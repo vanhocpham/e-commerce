@@ -215,6 +215,10 @@ class DiscoutService {
     }
 
     static async deleteDiscount(){
+
+    }
+
+    static async cancelDiscountCode(){
         
     }
 }
