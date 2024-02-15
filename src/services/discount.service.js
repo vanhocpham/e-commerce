@@ -156,7 +156,7 @@ class DiscoutService {
         ]
      */
     static async getDiscountAmount({codeId, userId, shopId, products}){
-        // Happy New Year 2024
+        // Happy New Year 2024 - khai code
         const foundDiscount = await checkDiscountExists({
             model: discount,
             filter: {
