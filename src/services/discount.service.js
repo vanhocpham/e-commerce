@@ -180,7 +180,7 @@ class DiscoutService {
         if(!discount_is_active) throw new NotFoundError('Discount expired!');
         if(!discount_max_uses) throw new NotFoundError('Discount are out!');
 
-        if(new Date() < new Date(discount_start_date || new Date() > new Date(discount_end_date)){
+        if(new Date() < new Date(discount_start_date) || new Date() > new Date(discount_end_date)){
             throw new NotFoundError('Discount are expired!');
         }
 
