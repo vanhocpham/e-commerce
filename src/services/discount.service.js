@@ -215,12 +215,36 @@ class DiscoutService {
         }
     }
 
-    static async deleteDiscount(){
+    static async deleteDiscountCode({shopId, codeId}){
+        const deleted = await discount.findOneAndDelete({
+            discount_code: codeId,
+            discount_shopId: convertToObjectIdMongo(shopId),
+        })
 
+        return deleted;
     }
 
-    static async cancelDiscountCode(){
-        //ok
-        
+    static async cancelDiscountCode({codeId, shopId, userId}){
+        const foundDiscount = await checkDiscountExists({
+            model: discount,
+            filter: {
+                discount_code: codeId,
+                discount_shopId: convertToObjectIdMongo(shopId),
+            }
+        })
+
+        if(!foundDiscount) throw new NotFoundError(`Discount Not Found!`)
+
+        const result = await discount.findByIdAndUpdate(foundDiscount._id, {
+            $pull: {
+                discount_users_used: userId,
+            },
+            $inc: {
+                discount_max_uses: 1,
+                discount_uses_count: -1,
+            }
+        })
+
+        return result;
     }
 }
