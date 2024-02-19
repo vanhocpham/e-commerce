@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Get amount a discount
 router.post('/amount', asyncHandler(discountController.getDiscountAmount))
-router.post('/list_discount_code', asyncHandler(discountController.getAllDiscountCodesWithProducts))
+router.get('/list_discount_code', asyncHandler(discountController.getAllDiscountCodesWithProducts))
 
 // authentication //
 router.use(authenticationV2)
