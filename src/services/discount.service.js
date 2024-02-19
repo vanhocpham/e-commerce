@@ -17,7 +17,7 @@ const { findAllProducts } = require("./product.service.v2");
  * 
  */
 
-class DiscoutService {
+class DiscountService {
     static async createDiscountCode(payload){
         const {
             code, start_date, end_date, is_active,
@@ -224,6 +224,11 @@ class DiscoutService {
         return deleted;
     }
 
+    /**
+     * Cancel discount code
+     * @param {*} param0 
+     * @returns 
+     */
     static async cancelDiscountCode({codeId, shopId, userId}){
         const foundDiscount = await checkDiscountExists({
             model: discount,
@@ -248,3 +253,5 @@ class DiscoutService {
         return result;
     }
 }
+
+module.exports = DiscountService;
