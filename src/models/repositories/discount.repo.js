@@ -29,13 +29,13 @@ const findAllDiscountCodesSelect = async ({
     .sort(sortBy)
     .skip(skip)
     .limit(limit)
-    .select(unGetSelectData(select))
+    .select(getSelectData(select))
     .lean();
 
     return documents;
 }
 
-const checkDiscountExists = async (model, filter) => {
+const checkDiscountExists = async ({model, filter}) => {
     const foundDiscount = await model.findOne(filter).lean()
 
     return foundDiscount;

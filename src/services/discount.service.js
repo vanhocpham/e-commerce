@@ -2,7 +2,7 @@
 
 const { BadRequestError, NotFoundError } = require("../core/error.response");
 const discount = require("../models/discount.model");
-const { findAllDiscountCodesUnselect, checkDiscountExists } = require("../models/repositories/discount.repo");
+const { findAllDiscountCodesUnselect, findAllDiscountCodesSelect, checkDiscountExists } = require("../models/repositories/discount.repo");
 const { convertToObjectIdMongo } = require("../utils");
 const { findAllProducts } = require("./product.service.v2");
 
@@ -125,14 +125,14 @@ class DiscountService {
     static async getAllDiscountCodesByShop({
         limit, page, shopId
     }){
-        const discounts = await findAllDiscountCodesUnselect({
+        const discounts = await findAllDiscountCodesSelect({
             limit: +limit,
             page: +page,
             filter: {
                 discount_shopId: convertToObjectIdMongo(shopId),
                 discount_is_active: true,
             },
-            unSelect: ['__v', 'discount_shopId'],
+            select: ['discount_code', 'discount_name'],
             model: discount,
         })
 
@@ -179,6 +179,8 @@ class DiscountService {
             discount_users_used,
             discount_type,
             discount_value,
+            discount_start_date,
+            discount_end_date
         } = foundDiscount;
 
         if(!discount_is_active) throw new NotFoundError('Discount expired!');
