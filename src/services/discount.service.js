@@ -30,8 +30,6 @@ class DiscountService {
             throw new BadRequestError('Discount code has expired!')
         }
 
-        console.log('fasdfsdafasdfas',convertToObjectIdMongo(shopId))
-
 
         // create index for discount code
         const foundDiscount = await discount.findOne({
