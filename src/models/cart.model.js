@@ -29,7 +29,7 @@ const cartSchema = new Schema({
    cart_userId: {type: Number, required: true,}
 }, {
     collection: COLLECTION_NAME,
-    timeseries: {
+    timestamps: {
         createdAt: 'createdOn',
         updatedAt: 'modifiedOn'
     }
