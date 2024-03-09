@@ -12,6 +12,7 @@ class CheckoutService {
      * @param {*} param0 
      */
     static async chekoutReview({cartId, userId, shop_order_ids}){
+        const foundCart = await findCartById(cartId);
 
     }
 
