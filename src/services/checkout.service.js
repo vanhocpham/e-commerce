@@ -78,6 +78,29 @@ class CheckoutService {
 
     }
 
+
+    // order
+
+    static async orderByUser({
+        shop_order_ids,
+        cartId,
+        userId,
+        user_address = {},
+        user_payment = {}
+    }){
+        const {shop_order_ids_new, checkout_order,} = await CheckoutService.chekoutReview({
+            cartId,
+            userId,
+            shop_order_ids,
+        })
+
+        // recheck out of stock
+        // get new array products
+        const products = shop_order_ids_new.flatMap(order => order.item_products)
+        console.log(`[1]::`,products);
+        
+    }
+
 }
 
 module.exports = CheckoutService;
