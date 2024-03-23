@@ -30,9 +30,9 @@ const reservationInventory = async ({ productId, quantity, cartId }) => {
           createOn: new Date(),
         },
       },
-    };
+    }, options = {upsert: true, new: true};
 
-    return inventory.updateOne(query, updateSet)
+    return inventory.updateOne(query, updateSet, options);
 };
 
 module.exports = {

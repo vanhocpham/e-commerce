@@ -1,6 +1,9 @@
 "use strict";
 const redis = require("redis");
 const { promisify } = require("util");
+const {
+  reservationInventory,
+} = require("../models/repositories/inventory.repo");
 const redisClient = res.createClient();
 
 const pexpire = promisify(redisClient.pexpire).bind(redisClient);
@@ -17,7 +20,16 @@ const acquireLock = async (productId, quantity, cartdId) => {
     console.log(`result::`, result);
     if (result === 1) {
       // handle with inventory
-        
+      const isReservation = await reservationInventory({
+        productId,
+        quantity,
+        cartQuantity,
+      });
+
+      if (isReservation.modifiedCount) {
+        await pexpire(key, expireTime);
+        return key;
+      }
 
       return key;
     } else {

@@ -4,6 +4,8 @@ const { BadRequestError } = require("../core/error.response");
 const { findCartById } = require("../models/repositories/cart.repo");
 const { checkProductByServer } = require("../models/repositories/product.repo");
 const { getDiscountAmount } = require("./discount.service");
+const { acquireLock, releaseLock } = require("./redis.service");
+const {order} = require("../models/order.model");
 
 class CheckoutService {
   /**
@@ -102,9 +104,40 @@ class CheckoutService {
     // get new array products
     const products = shop_order_ids_new.flatMap((order) => order.item_products);
     console.log(`[1]::`, products);
+    const acquireProducts = [];
 
     for (let i = 0; i < products.length; i++) {
       const { productId, quantity } = products[i];
+
+      const keyLock = await acquireLock(productId, quantity, cartId);
+
+      acquireProducts.push(keyLock ? true : false);
+
+      if (keyLock) {
+        await releaseLock(keyLock);
+      }
+
+      // Check if product is out of stock
+      if (acquireProducts.includes(false))
+        throw new BadRequestError(
+          "Some products is updated, please try again!"
+        );
+
+      const newOrder = await order.create({
+        order_userId: userId,
+        order_checkout: checkout_order,
+        order_shipping: user_address,
+        order_payment: user_payment,
+        order_products: shop_order_ids_new,
+      });
+
+      // if insert success then remve products in cart
+      if(newOrer){
+        // remove from cart
+        
+      }
+
+      return newOrder;
     }
   }
 }
