@@ -5,7 +5,7 @@ const { findCartById } = require("../models/repositories/cart.repo");
 const { checkProductByServer } = require("../models/repositories/product.repo");
 const { getDiscountAmount } = require("./discount.service");
 const { acquireLock, releaseLock } = require("./redis.service");
-const {order} = require("../models/order.model");
+const { order } = require("../models/order.model");
 
 class CheckoutService {
   /**
@@ -132,14 +132,20 @@ class CheckoutService {
       });
 
       // if insert success then remve products in cart
-      if(newOrer){
+      if (newOrer) {
         // remove from cart
-        
       }
 
       return newOrder;
     }
   }
+
+  /**
+   * Query Order [Users]
+   */
+    static async getOrderByUser(){
+        
+    }
 }
 
 module.exports = CheckoutService;
