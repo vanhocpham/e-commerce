@@ -143,9 +143,22 @@ class CheckoutService {
   /**
    * Query Order [Users]
    */
-    static async getOrderByUser(){
-        
-    }
+  static async getOrdersByUser() {}
+
+  /**
+   * Query One Order [Users]
+   */
+  static async getOneOrderByUser() {}
+
+  /**
+   * Cancel Order [Users]
+   */
+  static async cancelOrderByUser() {}
+
+  /**
+   * Update Order status [Users]
+   */
+  static async updateOrderStatusByShop() {}
 }
 
 module.exports = CheckoutService;
