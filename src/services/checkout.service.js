@@ -143,7 +143,9 @@ class CheckoutService {
   /**
    * Query Order [Users]
    */
-  static async getOrdersByUser() {}
+  static async getOrdersByUser() {
+    
+  }
 
   /**
    * Query One Order [Users]
@@ -159,6 +161,8 @@ class CheckoutService {
    * Update Order status [Users]
    */
   static async updateOrderStatusByShop() {}
+
+
 }
 
 module.exports = CheckoutService;
